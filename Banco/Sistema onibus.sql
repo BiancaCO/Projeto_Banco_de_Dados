@@ -15,7 +15,7 @@ CREATE DATABASE "Sistema onibus"
 
 
 
-	CREATE TABLE Administrador(
+CREATE TABLE Administrador(
     Admin_id INT PRIMARY KEY,
     Nome VARCHAR(50),
     Senha VARCHAR(50)
@@ -35,7 +35,10 @@ CREATE TABLE Garagem(
     Nome VARCHAR(50) PRIMARY KEY,
     Num_vagas INT,
     Empresa_id VARCHAR(50),
-    FOREIGN KEY (Empresa_id) REFERENCES Empresa(Nome)
+    CONSTRAINT garagem_empresa_id_fkey FOREIGN KEY (empresa_id)
+        REFERENCES public.empresa (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Horario(
@@ -49,8 +52,14 @@ CREATE TABLE Linha(
     Modelo VARCHAR(50),
     Empresa_id VARCHAR(50),
     Garagem_id VARCHAR(50),
-    FOREIGN KEY (Empresa_id) REFERENCES Empresa(Nome),
-    FOREIGN KEY (Garagem_id) REFERENCES Garagem(Nome)
+    CONSTRAINT linha_empresa_id_fkey FOREIGN KEY (empresa_id)
+        REFERENCES public.empresa (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT linha_garagem_id_fkey FOREIGN KEY (garagem_id)
+        REFERENCES public.garagem (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Motorista(
@@ -60,14 +69,23 @@ CREATE TABLE Motorista(
     Foto BYTEA,
 	Linha_id VARCHAR(3),
 	Empresa_id VARCHAR(50),
-	FOREIGN KEY (Linha_id) REFERENCES Linha(Nome),
-	FOREIGN KEY (Empresa_id) REFERENCES Empresa(Nome)
+    CONSTRAINT motorista_empresa_id_fkey FOREIGN KEY (empresa_id)
+        REFERENCES public.empresa (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT motorista_linha_id_fkey FOREIGN KEY (linha_id)
+        REFERENCES public.linha (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Terminal(
     Nome VARCHAR(50) PRIMARY KEY,
     Cidade_id VARCHAR(50),
-    FOREIGN KEY (Cidade_id) REFERENCES Cidade(Nome)
+    CONSTRAINT terminal_cidade_id_fkey FOREIGN KEY (cidade_id)
+      REFERENCES public.cidade (nome) MATCH SIMPLE
+      ON UPDATE NO ACTION
+      ON DELETE CASCADE
 );
 
 CREATE TABLE Trajeto(
@@ -75,15 +93,27 @@ CREATE TABLE Trajeto(
     Origem_id VARCHAR(50),
     Destino_id VARCHAR(50),
     PRIMARY KEY (Linha_id, Origem_id, Destino_id),
-    FOREIGN KEY (Linha_id) REFERENCES Linha(Nome),
-    FOREIGN KEY (Origem_id) REFERENCES Terminal(Nome),
-    FOREIGN KEY (Destino_id) REFERENCES Terminal(Nome)
+    CONSTRAINT trajeto_destino_id_fkey FOREIGN KEY (destino_id)
+        REFERENCES public.terminal (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT trajeto_linha_id_fkey FOREIGN KEY (linha_id)
+        REFERENCES public.linha (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT trajeto_origem_id_fkey FOREIGN KEY (origem_id)
+        REFERENCES public.terminal (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Parada(
     Nome VARCHAR(6) PRIMARY KEY,
     Cidade_id VARCHAR(50),
-    FOREIGN KEY (Cidade_id) REFERENCES Cidade(Nome)
+    CONSTRAINT parada_cidade_id_fkey FOREIGN KEY (cidade_id)
+        REFERENCES public.cidade (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Trajeto_Parada(
@@ -94,12 +124,30 @@ CREATE TABLE Trajeto_Parada(
     Parada_4 VARCHAR(6),
     Parada_5 VARCHAR(6),
     PRIMARY KEY (Linha_id),
-    FOREIGN KEY (Linha_id) REFERENCES Linha(Nome),
-	FOREIGN KEY (Parada_1) REFERENCES Parada(Nome),
-	FOREIGN KEY (Parada_2) REFERENCES Parada(Nome),
-	FOREIGN KEY (Parada_3) REFERENCES Parada(Nome),
-	FOREIGN KEY (Parada_4) REFERENCES Parada(Nome),
-	FOREIGN KEY (Parada_5) REFERENCES Parada(Nome)
+	CONSTRAINT trajeto_parada_linha_id_fkey FOREIGN KEY (linha_id)
+        REFERENCES public.linha (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT trajeto_parada_parada_1_fkey FOREIGN KEY (parada_1)
+        REFERENCES public.parada (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT trajeto_parada_parada_2_fkey FOREIGN KEY (parada_2)
+        REFERENCES public.parada (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT trajeto_parada_parada_3_fkey FOREIGN KEY (parada_3)
+        REFERENCES public.parada (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT trajeto_parada_parada_4_fkey FOREIGN KEY (parada_4)
+        REFERENCES public.parada (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT trajeto_parada_parada_5_fkey FOREIGN KEY (parada_5)
+        REFERENCES public.parada (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Horario_Linha(
@@ -110,12 +158,30 @@ CREATE TABLE Horario_Linha(
     Horario_4 INT,
     Horario_5 INT,
     PRIMARY KEY (Linha_id),
-    FOREIGN KEY (Linha_id) REFERENCES Linha(Nome),
-	FOREIGN KEY (Horario_1) REFERENCES Horario(Horario_id),
-	FOREIGN KEY (Horario_2) REFERENCES Horario(Horario_id),
-	FOREIGN KEY (Horario_3) REFERENCES Horario(Horario_id),
-	FOREIGN KEY (Horario_4) REFERENCES Horario(Horario_id),
-	FOREIGN KEY (Horario_5) REFERENCES Horario(Horario_id)
+    CONSTRAINT horario_linha_horario_1_fkey FOREIGN KEY (horario_1)
+        REFERENCES public.horario (horario_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT horario_linha_horario_2_fkey FOREIGN KEY (horario_2)
+        REFERENCES public.horario (horario_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT horario_linha_horario_3_fkey FOREIGN KEY (horario_3)
+        REFERENCES public.horario (horario_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT horario_linha_horario_4_fkey FOREIGN KEY (horario_4)
+        REFERENCES public.horario (horario_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT horario_linha_horario_5_fkey FOREIGN KEY (horario_5)
+        REFERENCES public.horario (horario_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE,
+    CONSTRAINT horario_linha_linha_id_fkey FOREIGN KEY (linha_id)
+        REFERENCES public.linha (nome) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE
 );
 
 -- INSERÇÃO DE ADMINISTRADORES --
@@ -238,6 +304,7 @@ VALUES
     ('P1V', 'Verdemontes'),
     ('P2V', 'Verdemontes'),
     ('P3V', 'Verdemontes');
+
 
 -- CONSULTA PARA VERIFICAÇÃO --
 SELECT * FROM Parada;
@@ -396,7 +463,6 @@ INSERT INTO Horario_Linha(Linha_id, Horario_1, Horario_2, Horario_3, Horario_4, 
 ('747', 2, 3, 6, 7, 8),
 ('263', 2, 3, 6, 7, 8),
 ('988', 2, 3, 6, 7, 8),
-('821', 9, 10, NULL, NULL, NULL),
 ('566', 9, 10, NULL, NULL, NULL),
 ('905', 9, 10, NULL, NULL, NULL),
 ('833', 9, 10, NULL, NULL, NULL),
@@ -405,11 +471,91 @@ INSERT INTO Horario_Linha(Linha_id, Horario_1, Horario_2, Horario_3, Horario_4, 
 ('913', 9, 10, NULL, NULL, NULL),
 ('784', 9, 10, NULL, NULL, NULL);
 
+
 -- CONSULTA PARA VERIFICAÇÃO --
 SELECT * FROM Horario_Linha;
 
+-- INSERÇÃO DE Trajeto_Parada --
+INSERT INTO Trajeto_Parada(Linha_id,Parada_1, Parada_2, Parada_3, Parada_4, Parada_5) VALUES
+('665', 'P1NE', 'P4NE', 'P7NE', 'P2NE', NULL),
+('242', 'P1VS', 'P4VS', 'P5VS', 'P2VS', NULL),
+('355', 'P1AV', 'P4AV', 'P7AV', 'P2AV', NULL),
+('234', 'P1V', 'P2V', 'P3V', NULL, NULL),
+('341', 'P1OA', 'P2OA', 'P3OA', 'P4OA','P5OA'),
+('893', 'P5OA', 'P6OA', 'P7OA', 'P8OA', 'P9OA'),
+('557', 'P2NE', 'P4NE', 'P6NE', 'P8NE', 'P1NE'),
+('755', 'P1NE', 'P3NE', 'P5NE', 'P7NE', 'P2NE'),
+('859', 'P2VS', 'P4VS', 'P5VS', 'P3VS', 'P1VS'),
+('485', 'P1VS', 'P3VS', 'P5VS', 'P4VS', 'P2VS'),
+('161', 'P2AV', 'P4AV', 'P6AV', 'P8AV', 'P1AV'),
+('167', 'P1AV', 'P3AV', 'P5AV', 'P7AV', 'P2AV'),
+('284', 'P3V', 'P2V', 'P1V', NULL, NULL),
+('928', 'P2V', 'P3V', 'P1V', NULL, NULL),
+('870', 'P12OA', 'P11OA', 'P10OA', 'P9OA', 'P8OA'),
+('458', 'P7OA', 'P6OA', 'P5OA', 'P4OA', 'P3OA'),
+('342', 'P1OA', 'P6OA', 'P8OA', 'P12OA', 'P3OA'),
+('494', 'P5NE', 'P4NE', 'P3NE', 'P2NE', 'P1NE'),
+('748', 'P5VS', 'P4VS', 'P3VS', 'P2VS', 'P1VS'),
+('131', 'P5AV', 'P4AV', 'P3AV', 'P2AV', 'P1AV'),
+('750', 'P3V', 'P2V', 'P1V', NULL, NULL),
+('747', 'P12OA', 'P3OA', 'P6OA', 'P1OA', 'P7OA'),
+('263', 'P10OA', 'P4OA', 'P7OA', 'P8OA', 'P11OA'),
+('988', 'P11OA', 'P7OA', 'P5OA', 'P10OA', 'P2OA');
 
-	-- UPDATE MOTORISTA PARA INSERIR FOTO  --
+-- CONSULTA PARA VERIFICAÇÃO --
+SELECT * FROM Trajeto_Parada;
+
+-- CRIAÇÃO DA VIEW PAINEL GERAL METROPOLITANO --
+CREATE VIEW Painel_Geral_Metropolitano AS
+SELECT motorista.nome, 
+		foto,
+		Horario_Linha.Linha_id, 
+      	Linha.modelo,
+		Linha.empresa_id,
+      	Horario.Duracao, 
+      	Horario.Dia_semana,
+		Terminal.cidade_id,
+      	Trajeto.origem_id, 
+      	Trajeto.destino_id, 
+    	Trajeto_Parada.Parada_1, 
+      	Trajeto_Parada.Parada_2, 
+      	Trajeto_Parada.Parada_3, 
+      	Trajeto_Parada.Parada_4, 
+      	Trajeto_Parada.Parada_5
+FROM Motorista
+INNER JOIN Horario_linha ON motorista.linha_id = horario_linha.linha_id
+INNER JOIN Horario ON Horario.horario_id = Horario_Linha.horario_1 OR horario_2 = horario_id OR horario_3 = horario_id OR horario_4 = horario_id OR horario_5 = horario_id
+INNER JOIN Linha ON Horario_Linha.linha_id = Linha.nome
+INNER JOIN Trajeto ON Trajeto.linha_id = Linha.nome
+INNER JOIN Terminal ON Terminal.nome = Trajeto.origem_id
+INNER JOIN Trajeto_Parada ON Trajeto.Linha_id = Trajeto_Parada.Linha_id;
+
+-- CRIAÇÃO DA VIEW PAINEL GERAL INTERESTADUAL --
+CREATE VIEW Painel_Geral_Interestadual AS
+SELECT 
+		motorista.nome, 
+		foto,
+		Horario_Linha.Linha_id,
+		modelo,
+        Linha.empresa_id, 
+		Duracao, 
+		Dia_semana,
+		origem_id, 
+		destino_id 
+FROM Motorista
+INNER JOIN Horario_linha ON motorista.linha_id = horario_linha.linha_id
+INNER JOIN Horario ON horario_1 = horario_id OR horario_2 = horario_id OR horario_3 = horario_id OR horario_4 = horario_id OR horario_5 = horario_id 
+INNER JOIN Linha ON Horario_Linha.linha_id = Linha.nome 
+INNER JOIN Trajeto ON Trajeto.linha_id = Linha.nome
+WHERE modelo = 'Ônibus Interestadual';
+
+-- CONSULTA PARA VERIFICAÇÃO --
+SELECT * FROM Painel_Geral_Metropolitano;
+
+-- CONSULTA PARA VERIFICAÇÃO --
+SELECT * FROM Painel_Geral_Interestadual;
+
+-- UPDATE MOTORISTA PARA INSERIR FOTO  --
 
 	UPDATE Motorista
 SET Foto = pg_read_binary_file('C:\Users\mllbi\Documents\Projeto BD\gabriel.jpg')
@@ -435,7 +581,4 @@ SELECT setval('motorista_id_seq', COALESCE((SELECT MAX(Motorista_id) FROM Motori
 UPDATE Motorista
 SET nome = 'Lucas.Souza'
 WHERE motorista_id = 1;
-
-
-
 
