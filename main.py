@@ -1,4 +1,4 @@
-# main.py
+# main.py APAGAR APAGAR APAGAR APAGAR APAGAR APAGAR APAGAR
 # Essa main é para testar as funções em geral 
 from psycopg2 import sql
 import Motorista
