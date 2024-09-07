@@ -1,17 +1,26 @@
-<!--  http://127.0.0.1:5000/search -->
+<!-- A URL para onde o formulário será enviado é http://127.0.0.1:5000/search -->
 
 <!doctype html>
 <html lang="en">
 <head>
+    <!-- Define a codificação de caracteres do documento como UTF-8 -->
     <meta charset="UTF-8">
+    <!-- Define o comportamento de visualização em dispositivos móveis, escalando o conteúdo para caber na tela -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Define o título da página exibido na aba do navegador -->
     <title>Pesquisar Motorista</title>
 </head>
 <body>
+    <!-- Título principal da página -->
     <h1>Pesquisar Motorista</h1>
+    
+    <!-- Formulário para buscar um motorista pelo nome -->
     <form method="POST" action="{{ url_for('search') }}">
+        <!-- Campo para inserir o nome do motorista -->
         <label for="name">Nome do Motorista:</label>
         <input type="text" id="name" name="name" required><br><br>
+        
+        <!-- Botão para enviar o formulário -->
         <input type="submit" value="Pesquisar">
     </form>
 </body>
