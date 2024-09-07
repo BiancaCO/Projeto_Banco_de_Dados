@@ -1,0 +1,297 @@
+/*CSS que vai estilizar todas as telas do projeto*/
+/*Comentado e dividido por categorias para melhor identificação*/
+/*--------------------------------------------------------------------------------*/
+
+/*ESTILIZA TODAS AS TELAS*/
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /*Definindo a fonte*/
+    margin: 0; /* Remove a margem padrão do navegador */
+    padding: 0; /* Remove o padding padrão do navegador */
+    background-color: #f4f4f4; /* Define um fundo cinza claro para a página */
+}
+
+header {
+    background-color: #ffffff; /* Define a cor de fundo do cabeçalho como branca */
+    padding: 10px 20px; /* Adiciona espaçamento interno ao cabeçalho */
+    border-bottom: 3px solid #002f6c; /* Adiciona uma borda inferior azul escura ao cabeçalho */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil ao cabeçalho */
+}
+
+.topnav {
+    display: flex; /* Usa Flexbox para alinhar os itens do cabeçalho */
+    justify-content: space-between; /* Alinha a logo à esquerda e o botão à direita */
+    align-items: center; /* Alinha verticalmente os itens no centro */
+}
+
+.topnav-img {
+    height: 80px; /* Ajusta a altura da imagem da logo */
+}
+
+.topnav-button {
+    padding: 10px 20px; /* Adiciona padding ao redor do texto do botão */
+    font-size: 16px; /* Define o tamanho da fonte do botão */
+    cursor: pointer; /* Altera o cursor para uma mão ao passar sobre o botão */
+    background-color: #b51616; /* Define a cor de fundo do botão como vermelho */
+    color: white; /* Define a cor do texto do botão como branca */
+    border: none; /* Remove a borda padrão do botão */
+    border-radius: 15px; /* Adiciona bordas arredondadas ao botão */
+    transition: background-color 0.3s; /* Adiciona uma transição suave para a cor de fundo do botão */
+    font-weight: bold; /* Define o texto do botão como negrito */
+    text-transform: uppercase; /* Transforma o texto do botão em maiúsculas */
+}
+
+.topnav-button:hover {
+    background-color: #930000; /* Altera a cor de fundo para um tom mais escuro de vermelho ao passar o mouse */
+}
+/*--------------------------------------------------------------------------------*/
+
+/*ESTILIZA A TELA 1 (tela1_usuario.html)*/
+
+#form_usuario{
+    padding: 40px; /* Adiciona padding ao redor do formulário */
+    max-width: 600px; /* Define a largura máxima do formulário */
+    margin: 0 auto; /* Centraliza o formulário horizontalmente */
+    background-color: #ffffff; /* Define a cor de fundo do formulário como branca */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil ao formulário */
+    border: solid #930000;
+    margin-top: 20px;
+    border-radius: 15px;
+}
+
+#pesquisaLinha {
+    text-align: center; /* Centraliza o texto do título */
+    margin-bottom: 20px; /* Adiciona margem abaixo do título */
+}
+
+#pesquisaLinha h2 {
+    font-size: 24px; /* Define o tamanho da fonte do título */
+    color: #002f6c; /* Define a cor do título como azul escuro */
+    margin: 0; /* Remove a margem padrão do título */
+    font-weight: 600; /* Define o peso da fonte como semi-negrito */
+}
+
+.pesquisa_linha {
+    padding: 12px; /* Adiciona padding ao redor do input */
+    font-size: 16px; /* Define o tamanho da fonte do input */
+    border: 2px solid #002f6c; /* Define a cor da borda do input como azul escuro */
+    border-radius: 15px; /* Adiciona bordas arredondadas ao input */
+    width: calc(100% - 24px); /* Define a largura do input, subtraindo o padding */
+    max-width: 500px; /* Define a largura máxima do input */
+    margin: 10px 0; /* Adiciona margin acima e abaixo do input */
+    display: block; /* Faz com que o input ocupe a linha inteira */
+    margin: 0 auto; /* Centraliza o input horizontalmente */
+}
+
+.botao_pesquisa {
+    padding: 12px 20px; /* Adiciona padding ao redor do texto do botão */
+    font-size: 16px; /* Define o tamanho da fonte do botão */
+    cursor: pointer; /* Altera o cursor para uma mão ao passar sobre o botão */
+    background-color: #002f6c; /* Define a cor de fundo do botão como azul escuro */
+    color: white; /* Define a cor do texto do botão como branca */
+    border: none; /* Remove a borda padrão do botão */
+    border-radius: 15px; /* Adiciona bordas arredondadas ao botão */
+    transition: background-color 0.3s; /* Adiciona uma transição suave para a cor de fundo do botão */
+    font-weight: bold; /* Define o texto do botão como negrito */
+    text-transform: uppercase; /* Transforma o texto do botão em maiúsculas */
+    display: block;
+    margin: 10px auto;
+
+}
+
+.botao_pesquisa:hover {
+    background-color: #001f3f; /* Altera a cor de fundo para um tom mais escuro de azul ao passar o mouse */
+}
+
+input{
+    text-align: center; /* Alinha o texto do placeholder horizontalmente */
+  
+}
+/*--------------------------------------------------------------------------------*/
+
+/*ESTILIZA A TELA 2 (tela2_areaAdmin.html)*/
+
+#form_adm {
+    padding: 40px; /* Adiciona padding ao redor do formulário */
+    max-width: 600px; /* Define a largura máxima do formulário */
+    margin: 0 auto; /* Centraliza o formulário horizontalmente */
+    background-color: rgba(0, 47, 108, 0.7); /* Define a cor de fundo com transparência */
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil ao formulário */
+    display: flex; /* Usa Flexbox para alinhar o conteúdo do formulário */
+    flex-direction: column; /* Alinha os itens do formulário verticalmente */
+    align-items: center; /* Centraliza o conteúdo do formulário horizontalmente */
+    justify-content: center; /* Centraliza o conteúdo do formulário verticalmente */
+    height: 50vh; /* Define a altura do formulário para 60% da altura da tela */
+    border: solid #930000;
+    margin-top: 30px;
+}
+
+
+#area_admTitle{
+    text-align: center; /* Centraliza o texto do título */
+    margin-bottom: 20px; /* Adiciona margem abaixo do título */
+}
+
+#area_admTitle h2 {
+    font-size: 24px; /* Define o tamanho da fonte do título */
+    color: #002f6c; /* Define a cor do título como azul escuro */
+    margin: 0; /* Remove a margem padrão do título */
+    font-weight: 600; /* Define o peso da fonte como semi-negrito */
+}
+
+#login_adm h2 {
+    font-size: 24px; /* Define o tamanho da fonte do título */
+    color: #ffffff; /* Define a cor do título como branco*/
+    margin: 0; /* Remove a margem padrão do título */
+    font-weight: 600; /* Define o peso da fonte como semi-negrito */
+}
+
+.usuario_adm {
+    padding: 12px; /* Adiciona padding ao redor do input */
+    font-size: 16px; /* Define o tamanho da fonte do input */
+    border: 2px solid #930000; /* Define a cor da borda do input como azul escuro */
+    border-radius: 15px; /* Adiciona bordas arredondadas ao input */
+    width: calc(100% - 24px); /* Define a largura do input, subtraindo o padding */
+    max-width: 500px; /* Define a largura máxima do input */
+    margin: 10px 0; /* Adiciona margin acima e abaixo do input */
+    display: block; /* Faz com que o input ocupe a linha inteira */
+    margin: 0 auto; /* Centraliza o input horizontalmente */
+}
+
+.senha_adm {
+    padding: 12px; /* Adiciona padding ao redor do input */
+    font-size: 16px; /* Define o tamanho da fonte do input */
+    border: 2px solid #930000; /* Define a cor da borda do input como azul escuro */
+    border-radius: 15px; /* Adiciona bordas arredondadas ao input */
+    width: calc(100% - 24px); /* Define a largura do input, subtraindo o padding */
+    max-width: 500px; /* Define a largura máxima do input */
+    margin: 10px 0; /* Adiciona margin acima e abaixo do input */
+    display: block; /* Faz com que o input ocupe a linha inteira */
+    margin: 0 auto; /* Centraliza o input horizontalmente */
+}
+
+.botao_login {
+    padding: 12px 20px; /* Adiciona padding ao redor do texto do botão */
+    font-size: 16px; /* Define o tamanho da fonte do botão */
+    cursor: pointer; /* Altera o cursor para uma mão ao passar sobre o botão */
+    background-color: #930000; /* Define a cor de fundo do botão como azul escuro */
+    color: white; /* Define a cor do texto do botão como branca */
+    border: none; /* Remove a borda padrão do botão */
+    border-radius: 15px; /* Adiciona bordas arredondadas ao botão */
+    transition: background-color 0.3s; /* Adiciona uma transição suave para a cor de fundo do botão */
+    font-weight: bold; /* Define o texto do botão como negrito */
+    text-transform: uppercase; /* Transforma o texto do botão em maiúsculas */
+    display: block;
+    margin: 10px auto;
+
+}
+
+#area_admTitle {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+
+label{
+    display: block;
+    text-align: left;
+    color: #ffffff;
+}
+/*--------------------------------------------------------------------------------*/
+
+/*ESTILIZA A TELA 3 (tela3_inicio_adm.html)*/
+
+#form_linhaAdm{
+    padding: 40px; /* Adiciona padding ao redor do formulário */
+    max-width: 600px; /* Define a largura máxima do formulário */
+    margin: 0 auto; /* Centraliza o formulário horizontalmente */
+    background-color: #ffffff; /* Define a cor de fundo do formulário como branca */
+    border-radius: 15px; /* Adiciona bordas arredondadas ao formulário */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil ao formulário */
+    border: solid #930000;
+    margin-top: 20px;
+}
+
+/* Adicione isso ao seu arquivo estilo.css */
+
+.welcome-message {
+    background-color: #002f6c; 
+    color: white;
+    padding: 15px;
+    margin: 20px auto; /* Margem automática para centralizar horizontalmente */
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px; /* Define uma largura máxima para o contêiner */
+    text-align: center; /* Centraliza o texto dentro do contêiner */
+    position: relative;
+}
+
+.welcome-text {
+    font-size: 16px;
+    flex: 1; /* Faz o texto ocupar o espaço disponível */
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 10px;
+    border-radius: 15px;
+}
+
+.close-button:hover {
+    color: #dcdcdc;
+}
+
+/*--------------------------------------------------------------------------------*/
+
+/*ESTILIZA A TELA 4 (tela_EditarMotorista.html)*/
+
+#form_motorista{
+    padding: 40px; /* Adiciona padding ao redor do formulário */
+    max-width: 600px; /* Define a largura máxima do formulário */
+    margin: 0 auto; /* Centraliza o formulário horizontalmente */
+    background-color: #ffffff; /* Define a cor de fundo do formulário como branca */
+    border-radius: 15px; /* Adiciona bordas arredondadas ao formulário */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil ao formulário */
+    border: solid #930000;
+    margin-top: 20px;
+}
+/*--------------------------------------------------------------------------------*/
+
+/*ESTILIZA A TELA 5 (tela_EditarTrajeto.html)*/
+/*--------------------------------------------------------------------------------*/
+
+/*ESTILIZA A TELA 6 (tela_VisaoGeral.html)*/
+/*--------------------------------------------------------------------------------*/
+
+.topnav a {
+    float: left; /* Alinha os links à esquerda */
+    display: block; /* Deixa os links como blocos */
+    color: #002f6c; /* Cor do texto */
+    text-align: center; /* Centraliza o texto */
+    padding: 14px 16px; /* Espaçamento interno */
+    text-decoration: none; /* Remove o sublinhado */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 15px;
+}
+
+/* Cor ao passar o mouse sobre o link */
+.topnav a:hover {
+    background-color: #f59797;
+    color: #002f6c;
+    
+}
+
+
+
+
+
+
+
