@@ -1,0 +1,41 @@
+<!--Documento diz respeito à tela do Usuário/Tela inicial do sistema -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <!-- Define o idioma da página para português do Brasil -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Define a escala da página para dispositivos móveis e diferentes tamanhos de tela -->
+    <title>NEXT STOP</title>
+    <!-- Título que será exibido na aba do navegador -->   
+    <link rel="stylesheet" href="estilo.css">  
+    <link href="so_onibus (2).png" rel="icon">
+</head>
+<body>
+    <header>
+        <!-- Adiciona a barra de navegação do cabeçalho -->
+        <div class="topnav">
+            <!-- Logo do sistema -->
+            <img class="topnav-img" src="logo_nextStop.png" alt="Logo Next Stop">
+            <!-- Botão para acessar a área do administrador -->
+            <button class="topnav-button" onclick="window.location.href='tela2_areaAdmin.html'">Área do Administrador</button>
+        </div>
+    </header>
+
+    <!-- Formulário para pesquisa de linhas -->
+    <form id="form_usuario" method="POST">
+        <div class="container">
+            <legend id="pesquisaLinha">
+                <!-- Título do formulário -->
+                <h2><b>PESQUISAR LINHA</b></h2>
+            </legend>
+        </div>
+
+        <!-- Input para o usuário inserir o número da linha desejada -->
+        <input type="number" min="1" name="Pesquise a linha" id="pesquisa_linha" class="pesquisa_linha" placeholder="Insira o número da linha" required>
+
+        <!-- Botão para pesquisar a linha -->
+        <button type="button" id="botao_pesquisa" class="botao_pesquisa" onclick="">Pesquisar</button>
+    </form>
+</body>
+</html>
