@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Motorista</title>
+</head>
+<body>
+    <h1>Editar Motorista</h1>
+    <form method="POST" action="{{ url_for('edit_motorista', motorista_id=motorista_id) }}">
+        <label for="name">Nome do Motorista:</label>
+        <input type="text" id="name" name="name" value="{{ motorista[0] }}" required><br><br>
+        
+        <label for="phone">Telefone:</label>
+        <input type="text" id="phone" name="phone" value="{{ motorista[1] }}" required><br><br>
+        
+        <label for="linha_id">ID da Linha:</label>
+        <input type="text" id="linha_id" name="linha_id" value="{{ motorista[2] }}" required><br><br>
+        
+        <label for="empresa_id">ID da Empresa:</label>
+        <input type="text" id="empresa_id" name="empresa_id" value="{{ motorista[3] }}" required><br><br>
+        
+        <input type="submit" value="Salvar">
+    </form>
+    <a href="{{ url_for('index') }}">Voltar</a>
+</body>
+</html>

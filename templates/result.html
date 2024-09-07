@@ -1,0 +1,30 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado da Pesquisa</title>
+</head>
+<body>
+    <h1>Resultado da Pesquisa</h1>
+    {% if motorista %}
+        <p><strong>Nome:</strong> {{ motorista[1] }}</p>
+        <p><strong>Telefone:</strong> {{ motorista[2] }}</p>
+        <p><strong>Foto:</strong></p>
+        <img src="{{ url_for('foto', motorista_id=motorista[0]) }}" alt="Foto do Motorista">
+        
+        <form method="GET" action="{{ url_for('edit_motorista', motorista_id=motorista[0]) }}">
+            <button type="submit">Editar Motorista</button>
+        </form>
+
+        <form method="POST" action="{{ url_for('delete_motorista', motorista_id=motorista[0]) }}">
+            <button type="submit">Excluir Motorista</button>
+        </form>
+    {% else %}
+        <p>Motorista não encontrado.</p>
+    {% endif %}
+    <a href="{{ url_for('index') }}">Voltar</a>
+</body>
+</html>
+
