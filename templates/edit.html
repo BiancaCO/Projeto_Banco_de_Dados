@@ -1,27 +1,40 @@
 <!doctype html>
 <html lang="en">
 <head>
+    <!-- Define a codificação de caracteres do documento como UTF-8 -->
     <meta charset="UTF-8">
+    <!-- Define o comportamento de visualização em dispositivos móveis, escalando o conteúdo para caber na tela -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Define o título da página exibido na aba do navegador -->
     <title>Editar Motorista</title>
 </head>
 <body>
+    <!-- Título principal da página -->
     <h1>Editar Motorista</h1>
+    
+    <!-- Formulário para editar os dados do motorista -->
     <form method="POST" action="{{ url_for('edit_motorista', motorista_id=motorista_id) }}">
+        <!-- Campo para o nome do motorista -->
         <label for="name">Nome do Motorista:</label>
         <input type="text" id="name" name="name" value="{{ motorista[0] }}" required><br><br>
         
+        <!-- Campo para o telefone do motorista -->
         <label for="phone">Telefone:</label>
         <input type="text" id="phone" name="phone" value="{{ motorista[1] }}" required><br><br>
         
+        <!-- Campo para o ID da linha associada ao motorista -->
         <label for="linha_id">ID da Linha:</label>
         <input type="text" id="linha_id" name="linha_id" value="{{ motorista[2] }}" required><br><br>
         
+        <!-- Campo para o ID da empresa associada ao motorista -->
         <label for="empresa_id">ID da Empresa:</label>
         <input type="text" id="empresa_id" name="empresa_id" value="{{ motorista[3] }}" required><br><br>
         
+        <!-- Botão para enviar o formulário -->
         <input type="submit" value="Salvar">
     </form>
+    
+    <!-- Link para voltar à página inicial -->
     <a href="{{ url_for('index') }}">Voltar</a>
 </body>
 </html>
