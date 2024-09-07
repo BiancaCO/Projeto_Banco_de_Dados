@@ -1,0 +1,138 @@
+/*Estilizando formulário.html*/
+/*De forma simples para fins de visualização, depois aprimoramos essa parte*/
+/*Feito com inspiração no sicontar*/
+body{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif ;
+    background-image: linear-gradient(to right, rgb(20,147,220),rgb(17,54,71));
+    color: #ccc;
+    margin: 5%;
+
+}
+h2{
+    text-align: center;
+}
+script{
+    display: none;
+}
+:root{
+    --main-box-border-radius: 15px;
+    --topnav-height: 70px;
+}
+label{
+    display: block;
+    margin-bottom: 0px;
+}
+input{
+    background-color: white;
+    border: none;
+    color: rgb(99, 92, 92);
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+}
+#conjunto{
+    /*Transforma a letra do conjunto automaticamente em maiúscula*/
+    text-transform: uppercase;
+}
+
+select{
+    background-color: white;
+    border: none;
+    color: rgb(99, 92, 92);
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+    
+}
+button{
+    /*Estilizando o botão "gerar"*/
+    background-image: linear-gradient(to right,rgb(0,92,197), rgb(90,20,220));
+    border: none;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 17px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition-duration: 0.4s;
+}
+button:hover{
+    /*Quando o cursor está posicionado em cima*/
+    background-color: dodgerblue;
+}
+
+
+.svg-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.topnav-img{
+    height: var(--topnav-height);
+}
+.logo-sicontrar{
+    font-size: larger;
+}
+#geradorloc {
+    /*Adiciona o campo azul atrás do título da página*/
+    border: 3px dodgerblue;
+    padding: 10px;
+    text-align: center ;
+    background-color: dodgerblue ;
+    border-radius: 8px;
+    font-size: 15px;
+
+}
+form {
+    /*Estiliza o form e adiciona o campo preto atrás dele*/
+    position: relative;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: var(--main-box-border-radius);
+    width: 25%;
+    color: white;
+}
+fieldset{
+    border: 6px solid dodgerblue;
+    border-radius:var(--main-box-border-radius);
+   
+}
+.bg-image{
+    /*Colocando a imagem de fundo*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.bottom{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    
+
+}
