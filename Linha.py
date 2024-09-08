@@ -144,7 +144,7 @@ def pesquisar_linha_Interestadual(nome):
 
 
 #Função Atualizar Linha
-def alterar_linha(nome, modelo=None, empresa_id=None, garagem_id=None, origem_id=None, destino_id=None, 
+def alterar_linha(nome, modelo=None, origem_id=None, destino_id=None, 
                   parada_1=None, parada_2=None, parada_3=None, parada_4=None, parada_5=None, 
                   horario_1=None, horario_2=None, horario_3=None, horario_4=None, horario_5=None):
     conn = ConectarBanco()
@@ -157,12 +157,7 @@ def alterar_linha(nome, modelo=None, empresa_id=None, garagem_id=None, origem_id
             if modelo is not None:
                 campos_atualizacao_linha.append("Modelo = %s")
                 valores_linha.append(modelo)
-            if empresa_id is not None:
-                campos_atualizacao_linha.append("Empresa_id = %s")
-                valores_linha.append(empresa_id)
-            if garagem_id is not None:
-                campos_atualizacao_linha.append("Garagem_id = %s")
-                valores_linha.append(garagem_id)
+    
 
             if campos_atualizacao_linha:
                 query_linha = sql.SQL("""
