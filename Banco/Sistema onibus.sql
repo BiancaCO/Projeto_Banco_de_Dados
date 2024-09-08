@@ -549,6 +549,46 @@ INNER JOIN Linha ON Horario_Linha.linha_id = Linha.nome
 INNER JOIN Trajeto ON Trajeto.linha_id = Linha.nome
 WHERE modelo = 'Ônibus Interestadual';
 
+-- CRIAÇÃO STORED PROCEDURE BUSCA_ORIGE_DESTINO_INTERESTADUAL --
+
+CREATE OR REPLACE FUNCTION buscar_por_origem_destino_interestadual(
+    p_origem_id character varying,
+    p_destino_id character varying
+)
+RETURNS TABLE (
+    nome_motorista character varying,
+    foto bytea,
+    linha_id character varying,
+    modelo character varying,
+    empresa_id character varying,
+    duracao character varying,
+    dia_semana character varying,
+    origem_id character varying,
+    destino_id character varying
+) AS
+$$
+BEGIN
+    RETURN QUERY
+    SELECT Painel_Geral_Interestadual.nome, Painel_Geral_Interestadual.foto, 
+	Painel_Geral_Interestadual.Linha_id, Painel_Geral_Interestadual.modelo, 
+	Painel_Geral_Interestadual.empresa_id, Painel_Geral_Interestadual.Duracao, 
+	Painel_Geral_Interestadual.Dia_semana, 
+	Painel_Geral_Interestadual.origem_id, Painel_Geral_Interestadual.destino_id
+    FROM Painel_Geral_Interestadual
+    WHERE Painel_Geral_Interestadual.origem_id = p_origem_id
+    AND Painel_Geral_Interestadual.destino_id = p_destino_id;
+
+    IF NOT FOUND THEN
+        RAISE NOTICE 'Nenhuma linha encontrada com origem na origem e destino informados';
+    END IF;
+END;
+$$
+LANGUAGE plpgsql;
+
+-- CONSULTA PARA VERIFICAÇÃO -- 
+SELECT * FROM buscar_por_origem_destino_interestadual('Terminal Anta Careca', 'Terminal Patas Pintadas');
+
+
 -- CONSULTA PARA VERIFICAÇÃO --
 SELECT * FROM Painel_Geral_Metropolitano;
 
