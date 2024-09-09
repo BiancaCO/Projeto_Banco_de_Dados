@@ -530,6 +530,9 @@ INNER JOIN Trajeto ON Trajeto.linha_id = Linha.nome
 INNER JOIN Terminal ON Terminal.nome = Trajeto.origem_id
 INNER JOIN Trajeto_Parada ON Trajeto.Linha_id = Trajeto_Parada.Linha_id;
 
+-- CONSULTA PARA VERIFICAÇÃO --
+SELECT * FROM Painel_Geral_Metropolitano;
+
 -- CRIAÇÃO DA VIEW PAINEL GERAL INTERESTADUAL --
 CREATE VIEW Painel_Geral_Interestadual AS
 SELECT 
@@ -549,7 +552,10 @@ INNER JOIN Linha ON Horario_Linha.linha_id = Linha.nome
 INNER JOIN Trajeto ON Trajeto.linha_id = Linha.nome
 WHERE modelo = 'Ônibus Interestadual';
 
--- CRIAÇÃO STORED PROCEDURE BUSCA_ORIGE_DESTINO_INTERESTADUAL --
+-- CONSULTA PARA VERIFICAÇÃO --
+SELECT * FROM Painel_Geral_Interestadual;
+
+-- CRIAÇÃO FUNÇÃO BUSCA_ORIGEM_DESTINO_INTERESTADUAL --
 
 CREATE OR REPLACE FUNCTION buscar_por_origem_destino_interestadual(
     p_origem_id character varying,
@@ -585,15 +591,42 @@ END;
 $$
 LANGUAGE plpgsql;
 
--- CONSULTA PARA VERIFICAÇÃO -- 
+-- CHAMAMENTO DA FUNÇÃO -- 
 SELECT * FROM buscar_por_origem_destino_interestadual('Terminal Anta Careca', 'Terminal Patas Pintadas');
 
+-- CRIAÇÃO STORED PROCEDURE INSERIR_MOTORISTA --
+CREATE OR REPLACE PROCEDURE InserirMotorista(
+    p_motorista_id INT,
+    p_nome VARCHAR(50),
+    p_telefone VARCHAR(15),
+    p_foto BYTEA,
+    p_linha_id VARCHAR(3),
+    p_empresa_id VARCHAR(50)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- Verifica se a linha existe
+    IF NOT EXISTS (SELECT 1 FROM Linha WHERE nome = p_linha_id) THEN
+        RAISE EXCEPTION 'A linha % não existe.', p_linha_id;
+    END IF;
 
--- CONSULTA PARA VERIFICAÇÃO --
-SELECT * FROM Painel_Geral_Metropolitano;
+    -- Verifica se a empresa existe
+    IF NOT EXISTS (SELECT 1 FROM Empresa WHERE nome = p_empresa_id) THEN
+        RAISE EXCEPTION 'A empresa % não existe.', p_empresa_id;
+    END IF;
 
--- CONSULTA PARA VERIFICAÇÃO --
-SELECT * FROM Painel_Geral_Interestadual;
+    -- Insere o motorista se as verificações forem bem-sucedidas
+    INSERT INTO Motorista(motorista_id, nome, telefone, foto, linha_id, empresa_id)
+    VALUES (p_motorista_id, p_nome, p_telefone, p_foto, p_linha_id, p_empresa_id);
+
+    -- Mensagem de sucesso
+    RAISE NOTICE 'Motorista % inserido com sucesso.', p_nome;
+END;
+$$;
+
+-- CHAMAMENTO DA PROCEDURE --
+CALL InserirMotorista(69, 'João Silva', '(61) 91234-5678', NULL, '665', 'TransVia Express');
 
 -- UPDATE MOTORISTA PARA INSERIR FOTO  --
 
