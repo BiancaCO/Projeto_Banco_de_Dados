@@ -555,7 +555,7 @@ WHERE modelo = 'Ônibus Interestadual';
 -- CONSULTA PARA VERIFICAÇÃO --
 SELECT * FROM Painel_Geral_Interestadual;
 
--- CRIAÇÃO FUNÇÃO BUSCA_ORIGEM_DESTINO_INTERESTADUAL --
+-- CRIAÇÃO FUNÇÃO BUSCAR ORIGEM DESTINO INTERESTADUAL --
 
 CREATE OR REPLACE FUNCTION buscar_por_origem_destino_interestadual(
     p_origem_id character varying,
@@ -591,10 +591,10 @@ END;
 $$
 LANGUAGE plpgsql;
 
--- CHAMAMENTO DA FUNÇÃO -- 
+-- CHAMAMENTO DA FUNÇÃO BUSCAR ORIGEM DESTINO INTERESTADUAL -- 
 SELECT * FROM buscar_por_origem_destino_interestadual('Terminal Anta Careca', 'Terminal Patas Pintadas');
 
--- CRIAÇÃO STORED PROCEDURE INSERIR_MOTORISTA --
+-- CRIAÇÃO PROCEDURE INSERIR MOTORISTA --
 CREATE OR REPLACE PROCEDURE InserirMotorista(
     p_motorista_id INT,
     p_nome VARCHAR(50),
@@ -606,27 +606,89 @@ CREATE OR REPLACE PROCEDURE InserirMotorista(
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    -- Verifica se a linha existe
     IF NOT EXISTS (SELECT 1 FROM Linha WHERE nome = p_linha_id) THEN
         RAISE EXCEPTION 'A linha % não existe.', p_linha_id;
     END IF;
 
-    -- Verifica se a empresa existe
     IF NOT EXISTS (SELECT 1 FROM Empresa WHERE nome = p_empresa_id) THEN
         RAISE EXCEPTION 'A empresa % não existe.', p_empresa_id;
     END IF;
 
-    -- Insere o motorista se as verificações forem bem-sucedidas
     INSERT INTO Motorista(motorista_id, nome, telefone, foto, linha_id, empresa_id)
     VALUES (p_motorista_id, p_nome, p_telefone, p_foto, p_linha_id, p_empresa_id);
 
-    -- Mensagem de sucesso
     RAISE NOTICE 'Motorista % inserido com sucesso.', p_nome;
 END;
 $$;
 
--- CHAMAMENTO DA PROCEDURE --
+-- CHAMAMENTO DA PROCEDURE INSERIR MOTORISTA --
 CALL InserirMotorista(69, 'João Silva', '(61) 91234-5678', NULL, '665', 'TransVia Express');
+
+-- FUNÇÃO LINHAS ATUAIS --
+CREATE OR REPLACE FUNCTION LinhasAtuais()
+RETURNS TABLE(linha_nome VARCHAR(3), modelo VARCHAR(50), empresa_nome VARCHAR(50), horario_duracao VARCHAR(25)) AS
+$$
+DECLARE
+    dia_atual_num INT;
+    hora_atual TIME;
+    dia_texto VARCHAR;
+BEGIN
+    dia_atual_num := EXTRACT(DOW FROM NOW()); -- 0 = Domingo, 1 = Segunda, ..., 6 = Sábado
+    hora_atual := NOW()::time;
+	
+    CASE dia_atual_num
+        WHEN 0 THEN dia_texto := 'Domingo';
+        WHEN 1 THEN dia_texto := 'Segunda';
+        WHEN 2 THEN dia_texto := 'Terça';
+        WHEN 3 THEN dia_texto := 'Quarta';
+        WHEN 4 THEN dia_texto := 'Quinta';
+        WHEN 5 THEN dia_texto := 'Sexta';
+        WHEN 6 THEN dia_texto := 'Sábado';
+    END CASE;
+
+    RETURN QUERY
+    SELECT
+        pgm.linha_id,
+        pgm.modelo,
+        pgm.empresa_id,
+        pgm.duracao
+    FROM
+        Painel_Geral_Metropolitano pgm
+    WHERE
+        pgm.duracao IS NOT NULL 
+        AND POSITION('-' IN pgm.duracao) > 0 
+        AND SPLIT_PART(pgm.duracao, '-', 1) <> '' AND SPLIT_PART(pgm.duracao, '-', 2) <> ''
+        AND hora_atual BETWEEN SPLIT_PART(pgm.duracao, '-', 1)::time AND SPLIT_PART(pgm.duracao, '-', 2)::time
+        AND (
+            (pgm.dia_semana ILIKE '%Segunda à sexta%' AND dia_atual_num BETWEEN 1 AND 5) OR
+            (pgm.dia_semana ILIKE '%Segunda à sábado%' AND dia_atual_num BETWEEN 1 AND 6) OR
+            (pgm.dia_semana ILIKE '%Segunda à domingo%' AND dia_atual_num BETWEEN 1 AND 7) OR
+            (pgm.dia_semana ILIKE '%' || dia_texto || '%') 
+        );
+END;
+$$ LANGUAGE plpgsql;
+
+-- CONSULTA A FUNÇÃO LINHAS ATUAIS --
+SELECT * FROM LinhasAtuais();
+
+-- PROCEDURE LIXEIRA -- 
+CREATE OR REPLACE PROCEDURE Lixeira()
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    DELETE FROM linha
+    WHERE nome NOT IN (
+        SELECT DISTINCT linha_id
+        FROM trajeto
+    );
+    
+    RAISE NOTICE 'Linhas sem trajetos foram deletadas.';
+END;
+$$;
+
+-- CHAMAMENTO DA PROCEURE LIXEIRA --
+CALL Lixeira();
+
 
 -- UPDATE MOTORISTA PARA INSERIR FOTO  --
 
