@@ -660,9 +660,9 @@ BEGIN
         AND SPLIT_PART(pgm.duracao, '-', 1) <> '' AND SPLIT_PART(pgm.duracao, '-', 2) <> ''
         AND hora_atual BETWEEN SPLIT_PART(pgm.duracao, '-', 1)::time AND SPLIT_PART(pgm.duracao, '-', 2)::time
         AND (
-            (pgm.dia_semana ILIKE '%Segunda à sexta%' AND dia_atual_num BETWEEN 1 AND 5) OR
-            (pgm.dia_semana ILIKE '%Segunda à sábado%' AND dia_atual_num BETWEEN 1 AND 6) OR
-            (pgm.dia_semana ILIKE '%Segunda à domingo%' AND dia_atual_num BETWEEN 1 AND 7) OR
+            (pgm.dia_semana ILIKE '%Segunda à Sexta%' AND dia_atual_num BETWEEN 1 AND 5) OR
+            (pgm.dia_semana ILIKE '%Segunda à Sábado%' AND dia_atual_num BETWEEN 1 AND 6) OR
+            (pgm.dia_semana ILIKE '%Segunda à Domingo%' AND dia_atual_num BETWEEN 1 AND 7) OR
             (pgm.dia_semana ILIKE '%' || dia_texto || '%') 
         );
 END;
